@@ -8,17 +8,17 @@ import java.util.Random;
  */
 public class Tank {
 
-    private int x , y;
-    private  Dir dir = Dir.DOWN;
-    private static  final int SPEED =2;
+    public  int x , y;
+    public  Dir dir = Dir.DOWN;
+    public static  final int SPEED =2;
 
     public static int WIDTH =ResourceMgr.goodTankD.getWidth();
     public static int HEIGHT=ResourceMgr.goodTankD.getHeight();
-    private boolean moving = true;
-    private boolean living = true;
-    private TankFrame tf = null;
-    private Random random = new Random();
-    private Group group = Group.BAD;
+    public boolean moving = true;
+    public boolean living = true;
+    public TankFrame tf = null;
+    public Random random = new Random();
+    public Group group = Group.BAD;
     Rectangle rect  = new Rectangle();   //Rectangle 矩形
 
     public Rectangle getRect() {
