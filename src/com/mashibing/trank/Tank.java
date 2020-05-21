@@ -16,70 +16,20 @@ public class Tank {
     public static int HEIGHT=ResourceMgr.goodTankD.getHeight();
     public boolean moving = true;
     public boolean living = true;
-    public TankFrame tf = null;
     public Random random = new Random();
     public Group group = Group.BAD;
     Rectangle rect  = new Rectangle();   //Rectangle 矩形
+    FireStrategy fs;
+    GameModel gm;
 
-    public Rectangle getRect() {
-        return rect;
-    }
 
-    public void setRect(Rectangle rect) {
-        this.rect = rect;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public boolean isMoving() {
-        return moving;
-    }
-
-    public void setMoving(boolean moving) {
-        this.moving = moving;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public Dir getDir() {
-        return dir;
-    }
-
-    public void setDir(Dir dir) {
-        this.dir = dir;
-    }
-
-    public static int getSPEED() {
-        return SPEED;
-    }
-
-    public Tank(int x, int y, Dir dir,Group group,TankFrame tf) {
+    public Tank(int x, int y, Dir dir,Group group,GameModel gm) {
         super();
         this.x = x;
         this.y = y;
         this.group=group;
         this.dir = dir;
-        this.tf=tf;
+        this.gm=gm;
 
         rect.x = this.x;
         rect.y =  this.y;
@@ -88,7 +38,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if(!living) tf.tanks.remove(this);
+        if(!living) gm.tanks.remove(this);
 
         switch (dir){
             case LEFT:
@@ -158,11 +108,63 @@ public class Tank {
     public void fire() {
         int bx = this.x + Tank.WIDTH/2-Bullet.WIDTH/2;
         int by = this.y + Tank.HEIGHT/2-Bullet.HEIGHT/2;
-        tf.bullets.add(new Bullet(bx,by,this.dir,this.group,this.tf)) ;
+        gm.bullets.add(new Bullet(bx,by,this.dir,this.group,this.gm)) ;
 
     }
 
     public void die() {
     this.living=false;
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Dir getDir() {
+        return dir;
+    }
+
+    public void setDir(Dir dir) {
+        this.dir = dir;
+    }
+
+    public static int getSPEED() {
+        return SPEED;
     }
 }

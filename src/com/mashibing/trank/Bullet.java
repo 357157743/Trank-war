@@ -13,15 +13,15 @@ public class Bullet {
     private int x, y;
     private Dir dir;
     private boolean living = true;
-    TankFrame tf = null;
+    GameModel gm = null;
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir,Group group,TankFrame tf) {
+    public Bullet(int x, int y, Dir dir,Group group,GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group=  group;
-        this.tf=tf;
+        this.gm=gm;
 
         rect.x = this.x;
         rect.y =  this.y;
@@ -76,7 +76,7 @@ public class Bullet {
 
     public void paint(Graphics g) {
         if(!living){
-            tf.bullets.remove(this);
+            gm.bullets.remove(this);
         }
         switch (dir){
             case LEFT:
@@ -135,7 +135,7 @@ public class Bullet {
 
             int ex = tank.getX() + Tank.WIDTH/2-Explode.WIDTH/2;
             int ey = tank.getY() + Tank.HEIGHT/2-Explode.HEIGHT/2;
-            tf.explodes.add(new Explode(ex,ey,tf)); // 在坦克中心爆炸
+            gm.explodes.add(new Explode(ex,ey,gm)); // 在坦克中心爆炸
         }
     }
 

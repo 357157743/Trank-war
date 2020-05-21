@@ -13,10 +13,8 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 400, Dir.DOWN,Group.GOOD,this);
-    List<Bullet> bullets = new ArrayList<>();
-    List<Tank> tanks = new ArrayList<>();
-    List<Explode> explodes = new ArrayList<>();
+    GameModel gm = new GameModel();
+
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 735;
 
 
@@ -61,38 +59,7 @@ public class TankFrame extends Frame {
     // 如何画
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量:" + bullets.size(), 10, 60);
-        g.drawString("敌方坦克的数量:" + tanks.size(), 10, 80);
-        g.drawString("爆炸的数量:" + explodes.size(), 10, 100);
-        g.setColor(c);
-
-        // 如果用foreach循环的话，在其他地方调用bullets集合的remove方法会报错
-        // ConcurrentModifyException 因为这种情况只能调用iterator迭代器的remove方法 不能调用集合的remove方法
-        myTank.paint(g);
-
-        // 画子弹
-        for (int i=0;i<bullets.size();i++) {
-            bullets.get(i).paint(g);
-        }
-
-        //画坦克
-        for (int i=0;i<tanks.size();i++) {
-            tanks.get(i).paint(g);
-        }
-
-        // 画爆炸
-        for (int i=0;i<explodes.size();i++) {
-            explodes.get(i).paint(g);
-        }
-
-        // 碰撞检测
-        for(int i=0;i<bullets.size();i++){
-            for (int  j=0;j<tanks.size();j++){
-                bullets.get(i).collideWith(tanks.get(j));
-            }
-        }
+        gm.paint(g);
 
     }
 
@@ -147,7 +114,7 @@ public class TankFrame extends Frame {
                     break;
 
                 case KeyEvent.VK_CONTROL:
-                    myTank.fire();
+                    gm.getMainTank().fire();
                     break;
 
                 default:
@@ -161,14 +128,14 @@ public class TankFrame extends Frame {
 
             if (!bL && !bR && !bU && !bD) {
 
-                myTank.setMoving(false);
+                gm.getMainTank().setMoving(false);
             } else {
 
-                myTank.setMoving(true);
-                if (bL) myTank.setDir(Dir.LEFT);
-                if (bU) myTank.setDir(Dir.UP);
-                if (bR) myTank.setDir(Dir.RIGHT);
-                if (bD) myTank.setDir(Dir.DOWN);
+                gm.getMainTank().setMoving(true);
+                if (bL) gm.getMainTank().setDir(Dir.LEFT);
+                if (bU) gm.getMainTank().setDir(Dir.UP);
+                if (bR) gm.getMainTank().setDir(Dir.RIGHT);
+                if (bD) gm.getMainTank().setDir(Dir.DOWN);
             }
         }
     }
