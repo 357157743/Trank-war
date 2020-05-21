@@ -1,4 +1,4 @@
-package com.mashibing.trank;
+package com.mashibing.tank;
 
 import java.awt.*;
 import java.util.Random;
@@ -35,6 +35,27 @@ public class Tank {
         rect.y =  this.y;
         rect.width = WIDTH;
         rect.height= HEIGHT;
+
+        if(group == Group.GOOD) {
+            String goodFSName = (String)PropertyMgr.get("goodFS");
+
+            try {
+                fs = (FireStrategy) Class.forName(goodFSName).getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            fs = new DefaultFireStrategy();
+        }
+    }
+
+    public void fire() {
+        /*int bx = this.x + Tank.WIDTH/2-Bullet.WIDTH/2;
+        int by = this.y + Tank.HEIGHT/2-Bullet.HEIGHT/2;
+        gm.bullets.add(new Bullet(bx,by,this.dir,this.group,this.gm)) ;*/
+        fs.fire(this);
+
     }
 
     public void paint(Graphics g) {
@@ -105,12 +126,7 @@ public class Tank {
             this.dir = Dir.values()[random.nextInt(4)];
     }
 
-    public void fire() {
-        int bx = this.x + Tank.WIDTH/2-Bullet.WIDTH/2;
-        int by = this.y + Tank.HEIGHT/2-Bullet.HEIGHT/2;
-        gm.bullets.add(new Bullet(bx,by,this.dir,this.group,this.gm)) ;
 
-    }
 
     public void die() {
     this.living=false;

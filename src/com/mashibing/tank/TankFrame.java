@@ -1,12 +1,10 @@
-package com.mashibing.trank;
+package com.mashibing.tank;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @date 2020/4/17 - 9:27
@@ -92,8 +90,10 @@ public class TankFrame extends Frame {
                     break;
             }
 
-            setMainTankDir();
-        }
+			setMainTankDir();
+			
+			new Thread(()->new Audio("audio/tank_move.wav").play()).start();
+		}
 
         @Override //键盘抬起来
         public void keyReleased(KeyEvent e) {
@@ -124,7 +124,8 @@ public class TankFrame extends Frame {
             setMainTankDir();
         }
 
-        private void setMainTankDir() {
+		private void setMainTankDir() {
+			Tank myTank = gm.getMainTank();
 
             if (!bL && !bR && !bU && !bD) {
 

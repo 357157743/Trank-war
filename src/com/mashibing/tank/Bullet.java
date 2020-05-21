@@ -1,4 +1,4 @@
-package com.mashibing.trank;
+package com.mashibing.tank;
 
 import java.awt.*;
 
@@ -27,6 +27,7 @@ public class Bullet {
         rect.y =  this.y;
         rect.width = WIDTH;
         rect.height= HEIGHT;
+        gm.bullets.add(this);
     }
 
     public Group getGroup() {

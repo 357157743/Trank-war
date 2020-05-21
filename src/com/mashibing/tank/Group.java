@@ -1,4 +1,4 @@
-package com.mashibing.trank;
+package com.mashibing.tank;
 
 /** 敌我坦克分组
  * @date 2020/4/23 - 15:57

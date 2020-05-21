@@ -1,4 +1,4 @@
-package com.mashibing.trank;
+package com.mashibing.tank;
 
 import java.awt.*;
 

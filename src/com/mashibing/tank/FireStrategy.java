@@ -1,4 +1,4 @@
-package com.mashibing.trank;
+package com.mashibing.tank;
 
 /**
  * @date 2020/5/19 - 16:43

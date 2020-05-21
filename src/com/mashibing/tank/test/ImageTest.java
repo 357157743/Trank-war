@@ -1,4 +1,4 @@
-package com.mashibing.trank.test;
+package com.mashibing.tank.test;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,7 +7,6 @@ import org.junit.runners.JUnit4;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /** 图片
