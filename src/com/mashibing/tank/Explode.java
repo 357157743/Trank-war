@@ -5,7 +5,7 @@ import java.awt.*;
 /** 爆炸类
  * @date 2020/4/26 - 13:16
  */
-public class Explode {
+public class Explode  extends GameObject{
     public static int WIDTH =ResourceMgr.explodes[0].getWidth();
     public static int HEIGHT=ResourceMgr.explodes[0].getHeight();
 
@@ -21,13 +21,14 @@ public class Explode {
         new Thread(() -> new Audio("audio/explode.wav").play()).start(); // 加爆炸声音
     }
 
+    @Override
     public void paint(Graphics g){
 
         //if(step< ResourceMgr.explodes.length){   }
 
             g.drawImage(ResourceMgr.explodes[step++], x, y,null);
             if(step >= ResourceMgr.explodes.length ){
-                gm.explodes.remove(this);
+                gm.remove(this);
             }
 
     }

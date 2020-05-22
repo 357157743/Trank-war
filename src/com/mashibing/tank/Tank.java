@@ -1,14 +1,18 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.strategy.DefaultFireStrategy;
+import com.mashibing.tank.strategy.FireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
 /** 坦克类
  * @date 2020/4/20 - 10:20
  */
-public class Tank {
+public class Tank extends GameObject{
 
     public  int x , y;
+    public int oldX,oldY; //相交前的x y
     public  Dir dir = Dir.DOWN;
     public static  final int SPEED =2;
 
@@ -20,7 +24,7 @@ public class Tank {
     public Group group = Group.BAD;
     Rectangle rect  = new Rectangle();   //Rectangle 矩形
     FireStrategy fs;
-    GameModel gm;
+    public GameModel gm;
 
 
     public Tank(int x, int y, Dir dir,Group group,GameModel gm) {
@@ -58,8 +62,9 @@ public class Tank {
 
     }
 
+    @Override
     public void paint(Graphics g) {
-        if(!living) gm.tanks.remove(this);
+        if(!living) gm.remove(this);
 
         switch (dir){
             case LEFT:
@@ -80,6 +85,9 @@ public class Tank {
     }
 
     private void move(){
+        oldX =x;
+        oldY=y;
+
         if(!moving) return;
 
         switch (dir){
@@ -125,8 +133,6 @@ public class Tank {
     private void randomDir() {
             this.dir = Dir.values()[random.nextInt(4)];
     }
-
-
 
     public void die() {
     this.living=false;
@@ -182,5 +188,9 @@ public class Tank {
 
     public static int getSPEED() {
         return SPEED;
+    }
+
+    public void stop(){
+        moving=false;
     }
 }

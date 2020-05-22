@@ -5,16 +5,16 @@ import java.awt.*;
 /** 子弹类
  * @date 2020/4/20 - 10:56
  */
-public class Bullet {
+public class Bullet extends GameObject {
     private static final int SPEED = 4;
     public static int WIDTH =ResourceMgr.bulletD.getWidth();
     public static int HEIGHT=ResourceMgr.bulletD.getHeight();
-    Rectangle rect  = new Rectangle();   //Rectangle 矩形
+    public Rectangle rect  = new Rectangle();   //Rectangle 矩形
     private int x, y;
     private Dir dir;
     private boolean living = true;
     GameModel gm = null;
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     public Bullet(int x, int y, Dir dir,Group group,GameModel gm) {
         this.x = x;
@@ -27,7 +27,7 @@ public class Bullet {
         rect.y =  this.y;
         rect.width = WIDTH;
         rect.height= HEIGHT;
-        gm.bullets.add(this);
+        gm.add(this);
     }
 
     public Group getGroup() {
@@ -74,10 +74,10 @@ public class Bullet {
         this.dir = dir;
     }
 
-
+    @Override
     public void paint(Graphics g) {
         if(!living){
-            gm.bullets.remove(this);
+            gm.remove(this);
         }
         switch (dir){
             case LEFT:
@@ -125,6 +125,7 @@ public class Bullet {
     }
 
 
+/*
     public void collideWith(Tank tank) {
         if(this.group == tank.getGroup())return ;
 
@@ -133,14 +134,14 @@ public class Bullet {
         if(rect.intersects(tank.rect)){
             tank.die();
             this.die();
-
             int ex = tank.getX() + Tank.WIDTH/2-Explode.WIDTH/2;
             int ey = tank.getY() + Tank.HEIGHT/2-Explode.HEIGHT/2;
-            gm.explodes.add(new Explode(ex,ey,gm)); // 在坦克中心爆炸
+            gm.add(new Explode(ex,ey,gm)); // 在坦克中心爆炸
         }
     }
+*/
 
-    private void die() {
+    public void die() {
         this.living=false;
     }
 }
