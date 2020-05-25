@@ -9,7 +9,7 @@ import java.util.Random;
 /** 坦克类
  * @date 2020/4/20 - 10:20
  */
-public class Tank extends GameObject{
+public class  Tank extends GameObject{
 
     public  int x , y;
     public int oldX,oldY; //相交前的x y

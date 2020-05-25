@@ -125,9 +125,8 @@ public class Bullet extends GameObject {
     }
 
 
-/*
-    public void collideWith(Tank tank) {
-        if(this.group == tank.getGroup())return ;
+    public boolean collideWith(Tank tank) {
+        if(this.group == tank.getGroup())return false;
 
         //TODO: 用一个rect来记录子弹的位置
 
@@ -137,9 +136,10 @@ public class Bullet extends GameObject {
             int ex = tank.getX() + Tank.WIDTH/2-Explode.WIDTH/2;
             int ey = tank.getY() + Tank.HEIGHT/2-Explode.HEIGHT/2;
             gm.add(new Explode(ex,ey,gm)); // 在坦克中心爆炸
+            return true;
         }
+        return false;
     }
-*/
 
     public void die() {
         this.living=false;

@@ -7,22 +7,25 @@ import com.mashibing.tank.*;
  */
 public class BulletTankCollider implements Collider {
     @Override
-    public void collide(GameObject o1, GameObject o2,GameModel gm) {
+    public boolean collide(GameObject o1, GameObject o2) {
         if(o1 instanceof Bullet && o2 instanceof Tank){
             Bullet b = (Bullet) o1;
             Tank t = (Tank) o2;
-            collideWith(b,t,gm);
-        } else if( o2 instanceof Bullet && o1 instanceof Tank){
-            Bullet b = (Bullet) o2;
-            Tank t = (Tank) o1;
-            collideWith(b,t,gm);
+            // todo
+            if(b.collideWith(t)){
 
-        }else{
-            return;
-        }
+               return false ;
+            }
+
+            } else if( o2 instanceof Bullet && o1 instanceof Tank){
+               return collide(o2,o1);
+
+            }
+            return true;
+
     }
 
-    public void collideWith(Bullet b,Tank tank,GameModel gm) {
+ /*   public void collideWith(Bullet b,Tank tank) {
         if(b.group == tank.getGroup())return ;
 
         //TODO: 用一个rect来记录子弹的位置
@@ -34,6 +37,6 @@ public class BulletTankCollider implements Collider {
             int ey = tank.getY() + Tank.HEIGHT/2-Explode.HEIGHT/2;
             gm.add(new Explode(ex,ey,gm)); // 在坦克中心爆炸
         }
-    }
+    }*/
 
 }

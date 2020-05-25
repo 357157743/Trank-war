@@ -7,5 +7,5 @@ import com.mashibing.tank.GameObject;
  * @date 2020/5/22 - 8:59
  */
 public interface Collider {
-    void collide(GameObject o1, GameObject o2, GameModel gm);
+    boolean collide(GameObject o1, GameObject o2);
 }
