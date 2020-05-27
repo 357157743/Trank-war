@@ -13,21 +13,20 @@ public class Bullet extends GameObject {
     private int x, y;
     private Dir dir;
     private boolean living = true;
-    GameModel gm = null;
     public Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir,Group group,GameModel gm) {
+    public Bullet(int x, int y, Dir dir,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group=  group;
-        this.gm=gm;
+
 
         rect.x = this.x;
         rect.y =  this.y;
         rect.width = WIDTH;
         rect.height= HEIGHT;
-        gm.add(this);
+        GameModel.getInstance().add(this);
     }
 
     public Group getGroup() {
@@ -77,7 +76,7 @@ public class Bullet extends GameObject {
     @Override
     public void paint(Graphics g) {
         if(!living){
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch (dir){
             case LEFT:
@@ -124,22 +123,6 @@ public class Bullet extends GameObject {
 
     }
 
-
-    public boolean collideWith(Tank tank) {
-        if(this.group == tank.getGroup())return false;
-
-        //TODO: 用一个rect来记录子弹的位置
-
-        if(rect.intersects(tank.rect)){
-            tank.die();
-            this.die();
-            int ex = tank.getX() + Tank.WIDTH/2-Explode.WIDTH/2;
-            int ey = tank.getY() + Tank.HEIGHT/2-Explode.HEIGHT/2;
-            gm.add(new Explode(ex,ey,gm)); // 在坦克中心爆炸
-            return true;
-        }
-        return false;
-    }
 
     public void die() {
         this.living=false;

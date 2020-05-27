@@ -22,18 +22,16 @@ public class  Tank extends GameObject{
     public boolean living = true;
     public Random random = new Random();
     public Group group = Group.BAD;
-    Rectangle rect  = new Rectangle();   //Rectangle 矩形
+    public Rectangle rect  = new Rectangle();   //Rectangle 矩形
     FireStrategy fs;
-    public GameModel gm;
 
 
-    public Tank(int x, int y, Dir dir,Group group,GameModel gm) {
+    public Tank(int x, int y, Dir dir,Group group) {
         super();
         this.x = x;
         this.y = y;
         this.group=group;
         this.dir = dir;
-        this.gm=gm;
 
         rect.x = this.x;
         rect.y =  this.y;
@@ -52,6 +50,7 @@ public class  Tank extends GameObject{
         } else {
             fs = new DefaultFireStrategy();
         }
+         GameModel.getInstance().add(this);
     }
 
     public void fire() {
@@ -64,7 +63,7 @@ public class  Tank extends GameObject{
 
     @Override
     public void paint(Graphics g) {
-        if(!living) gm.remove(this);
+        if(!living) GameModel.getInstance().remove(this);
 
         switch (dir){
             case LEFT:
@@ -84,7 +83,13 @@ public class  Tank extends GameObject{
         move();
     }
 
+    public void back(){
+        x=oldX;
+        y=oldY;
+    }
+
     private void move(){
+        //记录移动之前的位置
         oldX =x;
         oldY=y;
 

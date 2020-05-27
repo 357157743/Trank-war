@@ -10,15 +10,14 @@ public class Explode  extends GameObject{
     public static int HEIGHT=ResourceMgr.explodes[0].getHeight();
 
     private int x ,y;
-    GameModel gm = null;
     private int step =0;
 
-    public Explode(int x, int y, GameModel gm) {
+    public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        this.gm = gm;
 
         new Thread(() -> new Audio("audio/explode.wav").play()).start(); // 加爆炸声音
+        GameModel.getInstance().add(this);
     }
 
     @Override
@@ -28,7 +27,7 @@ public class Explode  extends GameObject{
 
             g.drawImage(ResourceMgr.explodes[step++], x, y,null);
             if(step >= ResourceMgr.explodes.length ){
-                gm.remove(this);
+                GameModel.getInstance().remove(this);
             }
 
     }

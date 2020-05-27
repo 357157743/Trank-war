@@ -11,8 +11,6 @@ import java.awt.event.WindowEvent;
  */
 public class TankFrame extends Frame {
 
-    GameModel gm = new GameModel();
-
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 735;
 
 
@@ -57,7 +55,7 @@ public class TankFrame extends Frame {
     // 如何画
     @Override
     public void paint(Graphics g) {
-        gm.paint(g);
+        GameModel.getInstance().paint(g);
 
     }
 
@@ -114,7 +112,7 @@ public class TankFrame extends Frame {
                     break;
 
                 case KeyEvent.VK_CONTROL:
-                    gm.getMainTank().fire();
+                    GameModel.getInstance().getMainTank().fire();
                     break;
 
                 default:
@@ -125,18 +123,18 @@ public class TankFrame extends Frame {
         }
 
 		private void setMainTankDir() {
-			Tank myTank = gm.getMainTank();
+			Tank myTank =  GameModel.getInstance().getMainTank();
 
             if (!bL && !bR && !bU && !bD) {
 
-                gm.getMainTank().setMoving(false);
+                GameModel.getInstance().getMainTank().setMoving(false);
             } else {
 
-                gm.getMainTank().setMoving(true);
-                if (bL) gm.getMainTank().setDir(Dir.LEFT);
-                if (bU) gm.getMainTank().setDir(Dir.UP);
-                if (bR) gm.getMainTank().setDir(Dir.RIGHT);
-                if (bD) gm.getMainTank().setDir(Dir.DOWN);
+                GameModel.getInstance().getMainTank().setMoving(true);
+                if (bL)  GameModel.getInstance().getMainTank().setDir(Dir.LEFT);
+                if (bU)  GameModel.getInstance().getMainTank().setDir(Dir.UP);
+                if (bR)  GameModel.getInstance().getMainTank().setDir(Dir.RIGHT);
+                if (bD)  GameModel.getInstance().getMainTank().setDir(Dir.DOWN);
             }
         }
     }

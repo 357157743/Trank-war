@@ -13,12 +13,10 @@ public class TankTankCollider implements Collider {
             Tank t2 = (Tank) o2;
             if(t1.getRect().intersects(t2.getRect())){ //intersects 相交
                 // 坦克相遇 后退一步
-                /*t1.x=t1.oldX;
-                t1.y=t1.oldY;
-                t2.x=t2.oldX;
-                t2.y=t2.oldY;*/
+                t1.back();
+                t2.back();
 
-                t1.stop();
+                //t1.stop(); 坦克相遇 都停止
             }
         }
             return true;

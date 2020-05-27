@@ -10,24 +10,42 @@ import java.util.List;
  * @date 2020/5/21 - 9:14
  */
 public class GameModel {
+    private static final GameModel INSTANCE = new GameModel();
 
-    Tank myTank = new Tank(200, 400, Dir.DOWN,Group.GOOD,this);
+
+    public static  GameModel getInstance(){
+        return INSTANCE;
+    }
+
+    static{
+        INSTANCE.init();
+    }
+
+    Tank  myTank ;
 
     ColliderChain chain = new ColliderChain();
 
     private List<GameObject> objects = new ArrayList<>();
 
-    public GameModel(){
+    private  GameModel(){
+    };
+
+    public void init(){
+
+        myTank = new Tank(200, 400, Dir.DOWN,Group.GOOD);
         int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount"));
 
         //初始化地方坦克
         for (int i =0;i<initTankCount;i++){
-            add(new Tank(50+i*80,200,Dir.DOWN,Group.BAD,this));
-
+            new Tank(50+i*80,200,Dir.DOWN,Group.BAD);
         }
 
-    };
+        add(new Wall(150,150,200,50));
+        add(new Wall(550,150,200,50));
+        add(new Wall(300,300,50,200));
+        add(new Wall(550,300,50,200));
 
+    }
     public void add(GameObject go){
         this.objects.add(go);
     }
