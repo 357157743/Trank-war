@@ -20,6 +20,17 @@ public class Wall extends  GameObject {
         this.rect = new Rectangle(x,y,w,h);
     }
 
+
+    @Override
+    public int getWidth() {
+        return  w;
+    }
+
+    @Override
+    public int  getHeight() {
+        return h;
+    }
+
     @Override
     public void paint(Graphics g) {
         Color c= g.getColor();

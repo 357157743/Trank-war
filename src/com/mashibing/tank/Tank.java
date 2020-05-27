@@ -11,7 +11,6 @@ import java.util.Random;
  */
 public class  Tank extends GameObject{
 
-    public  int x , y;
     public int oldX,oldY; //相交前的x y
     public  Dir dir = Dir.DOWN;
     public static  final int SPEED =2;
@@ -54,11 +53,7 @@ public class  Tank extends GameObject{
     }
 
     public void fire() {
-        /*int bx = this.x + Tank.WIDTH/2-Bullet.WIDTH/2;
-        int by = this.y + Tank.HEIGHT/2-Bullet.HEIGHT/2;
-        gm.bullets.add(new Bullet(bx,by,this.dir,this.group,this.gm)) ;*/
         fs.fire(this);
-
     }
 
     @Override
@@ -81,6 +76,16 @@ public class  Tank extends GameObject{
         }
 
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return  WIDTH;
+    }
+
+    @Override
+    public int  getHeight() {
+        return HEIGHT;
     }
 
     public void back(){

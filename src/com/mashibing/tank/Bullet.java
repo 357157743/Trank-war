@@ -10,7 +10,6 @@ public class Bullet extends GameObject {
     public static int WIDTH =ResourceMgr.bulletD.getWidth();
     public static int HEIGHT=ResourceMgr.bulletD.getHeight();
     public Rectangle rect  = new Rectangle();   //Rectangle 矩形
-    private int x, y;
     private Dir dir;
     private boolean living = true;
     public Group group = Group.BAD;
@@ -94,6 +93,16 @@ public class Bullet extends GameObject {
         }
 
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return  WIDTH;
+    }
+
+    @Override
+    public int  getHeight() {
+        return HEIGHT;
     }
 
     private void move() {
