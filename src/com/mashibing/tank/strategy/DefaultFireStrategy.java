@@ -14,10 +14,11 @@ public class DefaultFireStrategy implements FireStrategy {
         int by = t.y + Tank.HEIGHT/2-Bullet.HEIGHT/2;
 
         // bug ? new bullet把自己又加了一遍
-        GameModel.getInstance().add(
+   /*     GameModel.getInstance().add(
                 new RectDecorator(
                         new TailDecorator(
-                        new Bullet(bx,by,t.dir,t.group))));
+                        new Bullet(bx,by,t.dir,t.group))));*/
+        new Bullet(bx,by,t.dir,t.group);
 
         if(t.group == Group.GOOD) new Thread(()->{ new Audio("audio/tank_fire.wav").play();}).start();
     }
