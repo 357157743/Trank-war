@@ -1,9 +1,14 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.observer.TankFireEvent;
+import com.mashibing.tank.observer.TankFireHandler;
+import com.mashibing.tank.observer.TankFireObserver;
 import com.mashibing.tank.strategy.DefaultFireStrategy;
 import com.mashibing.tank.strategy.FireStrategy;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /** 坦克类
@@ -202,5 +207,13 @@ public class  Tank extends GameObject{
 
     public void stop(){
         moving=false;
+    }
+
+    private List<TankFireObserver> fireObservers = Arrays.asList(new TankFireHandler());
+    public void handleFireKey() {
+        TankFireEvent event = new TankFireEvent(this);
+        for (TankFireObserver o: fireObservers) {
+            o.actionOnFire(event);
+        }
     }
 }
