@@ -1,6 +1,5 @@
-package com.mashibing.tank.spring.V02;
+package com.mashibing.tank.spring.V01;
 
-import com.mashibing.tank.spring.V02.Tank;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -9,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext context =new ClassPathXmlApplicationContext("app_auto.xml");
+        ApplicationContext context =new ClassPathXmlApplicationContext("src/resources/app.xml");
         Tank t = (Tank) context.getBean("tank");
         t.move();
     }

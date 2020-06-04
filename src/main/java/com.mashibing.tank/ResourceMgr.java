@@ -4,6 +4,7 @@ package com.mashibing.tank;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 
 /** 资源管理 坦克,爆炸和子弹的图片
  * @date 2020/4/22 - 16:00
@@ -14,7 +15,7 @@ public class ResourceMgr {
     public  static BufferedImage bulletU,bulletL,bulletR,bulletD;
     public static BufferedImage[] explodes =  new BufferedImage[16];
 
-    static{
+ /*   static{
         try {
 
             goodTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
@@ -40,5 +41,10 @@ public class ResourceMgr {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }*/
+
+    public static void main(String[] args) {
+        InputStream stream = ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png");
+        System.out.println("stream ="+stream);
     }
 }
