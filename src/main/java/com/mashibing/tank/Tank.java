@@ -20,8 +20,8 @@ public class  Tank extends GameObject{
     public  Dir dir = Dir.DOWN;
     public static  final int SPEED =2;
 
-    public static int WIDTH =ResourceMgr.goodTankD.getWidth();
-    public static int HEIGHT=ResourceMgr.goodTankD.getHeight();
+    public static int WIDTH ;
+    public static int HEIGHT;
     public boolean moving = true;
     public boolean living = true;
     public Random random = new Random();
@@ -29,6 +29,10 @@ public class  Tank extends GameObject{
     public Rectangle rect  = new Rectangle();   //Rectangle 矩形
     FireStrategy fs;
 
+    static{
+        WIDTH =ResourceMgr.goodTankU.getWidth();
+        HEIGHT=ResourceMgr.goodTankU.getHeight();
+    }
 
     public Tank(int x, int y, Dir dir,Group group) {
         super();

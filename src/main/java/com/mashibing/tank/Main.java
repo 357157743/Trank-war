@@ -10,7 +10,7 @@ public class Main {
 
 
 
-       new Thread(() -> new Audio("audio/war1.wav").loop()).start();   // 背景音乐
+  //     new Thread(() -> new Audio("audio/war1.wav").loop()).start();   // 背景音乐
 
         while(true){
             Thread.sleep(25);

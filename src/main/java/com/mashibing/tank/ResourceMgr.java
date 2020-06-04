@@ -9,14 +9,13 @@ import java.io.IOException;
  * @date 2020/4/22 - 16:00
  */
 public class ResourceMgr {
-    public  static BufferedImage goodTankL,goodTankU,goodTankR,goodTankD;
-    public  static BufferedImage badTankL,badTankU,badTankR,badTankD;
-    public  static BufferedImage bulletL,bulletU,bulletR,bulletD;
+    public  static BufferedImage goodTankU,goodTankL,goodTankR,goodTankD;
+    public  static BufferedImage badTankU,badTankL,badTankR,badTankD;
+    public  static BufferedImage bulletU,bulletL,bulletR,bulletD;
     public static BufferedImage[] explodes =  new BufferedImage[16];
 
     static{
         try {
-
 
             goodTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
             goodTankL = ImageUtil.rotateImage(goodTankU,-90);
