@@ -1,6 +1,12 @@
 package com.mashibing.tank.strategy;
 
-import com.mashibing.tank.*;
+/*import com.mashibing.tank.*;*/
+
+import com.mashibing.tank.Tank;
+import com.mashibing.tank.Bullet;
+import com.mashibing.tank.Dir;
+import com.mashibing.tank.Group;
+import com.mashibing.tank.Audio;
 
 /**
  * @date 2020/5/14 - 15:36

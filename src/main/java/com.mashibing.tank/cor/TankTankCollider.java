@@ -1,6 +1,9 @@
 package com.mashibing.tank.cor;
 
-import com.mashibing.tank.*;
+/*import com.mashibing.tank.*;*/
+
+import com.mashibing.tank.GameObject;
+import com.mashibing.tank.Tank;
 
 /** 坦克 坦克相撞
  * @date 2020/5/22 - 9:03

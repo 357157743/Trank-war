@@ -1,6 +1,11 @@
 package com.mashibing.tank.cor;
 
-import com.mashibing.tank.*;
+/*import com.mashibing.tank.*;*/
+
+import com.mashibing.tank.Bullet;
+import com.mashibing.tank.Explode;
+import com.mashibing.tank.GameObject;
+import com.mashibing.tank.Tank;
 
 /**
  * 子弹 坦克相撞
