@@ -5,7 +5,7 @@ import com.mashibing.tank.GameObject;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
+/** 责任链模式
  * @author wy
  * @create 2020-05-25 8:21
  */
