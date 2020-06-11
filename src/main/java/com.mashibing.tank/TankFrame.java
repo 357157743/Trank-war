@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 735;
-
+    GameModel gm = GameModel.getInstance();
 
     public TankFrame() {
 
@@ -82,6 +82,14 @@ public class TankFrame extends Frame {
 
                 case KeyEvent.VK_DOWN:
                     bD = true;
+                    break;
+
+                case KeyEvent.VK_S:
+                    gm.save();
+                    break;
+
+                case KeyEvent.VK_L:
+                    gm.load();
                     break;
 
                 default:

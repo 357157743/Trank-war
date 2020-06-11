@@ -3,8 +3,10 @@ package com.mashibing.tank;
 import com.mashibing.tank.cor.ColliderChain;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @date 2020/5/21 - 9:14
@@ -94,5 +96,56 @@ public class GameModel {
 
     public Tank getMainTank() {
         return myTank;
+    }
+
+    public void save()  {
+        File f = new File("C:/mashibing/tank.data");
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream(f));
+            oos.writeObject(myTank);
+            oos.writeObject(objects);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+             if(oos !=null){
+                 try {
+                     oos.close();
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                 }
+             }
+        }
+
+    }
+
+    public void load() {
+
+        File f = new File("C:/mashibing/tank.data");
+        ObjectInputStream  ois = null;
+        try {
+            ois = new ObjectInputStream(new FileInputStream(f));
+            myTank = (Tank) ois.readObject();
+            objects = (List) ois.readObject();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(ois !=null){
+                try {
+                    ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
     }
 }
