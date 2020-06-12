@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * @date 2020/5/21 - 9:14
  */
-public class GameModel {
+public class GameModel /*implements Serializable*/ {
     private static final GameModel INSTANCE = new GameModel();
 
 
