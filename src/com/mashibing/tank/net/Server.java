@@ -29,7 +29,7 @@ public class Server {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pl = ch.pipeline();
-                            pl.addLast(new TankMsgDecoder())
+                            pl.addLast(new TankJoinMsgDecoder())
                               .addLast(new ServerChildHandler());
                         }
                     })
@@ -68,7 +68,7 @@ class ServerChildHandler  extends ChannelInboundHandlerAdapter  {
         System.out.println("channelRaed");
 
         try {
-            TankMsg tm  = (TankMsg) msg;
+            TankJoinMsg tm  = (TankJoinMsg) msg;
 
             System.out.println(tm);
         } finally {

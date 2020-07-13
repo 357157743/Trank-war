@@ -2,6 +2,7 @@ package com.mashibing.tank;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.UUID;
 
 /** 坦克类
  * @date 2020/4/20 - 10:20
@@ -11,6 +12,7 @@ public class Tank {
     private int x , y;
     private  Dir dir = Dir.DOWN;
     private static  final int SPEED =2;
+    UUID id = UUID.randomUUID();
 
     public static int WIDTH =ResourceMgr.goodTankD.getWidth();
     public static int HEIGHT=ResourceMgr.goodTankD.getHeight();
@@ -20,6 +22,14 @@ public class Tank {
     private Random random = new Random();
     private Group group = Group.BAD;
     Rectangle rect  = new Rectangle();   //Rectangle 矩形
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public Rectangle getRect() {
         return rect;

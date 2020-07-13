@@ -1,5 +1,7 @@
 package com.mashibing.tank.net;
 
+import com.mashibing.tank.Tank;
+import com.mashibing.tank.TankFrame;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -74,32 +76,25 @@ class ClientChannelInitializer extends  ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
-                .addLast(new TankMsgEncoder())
+                .addLast(new TankJoinMsgEncoder())
+                .addLast(new TankJoinMsgDecoder())
                 .addLast(new CilentHandler());
     }
 }
 
-class CilentHandler extends ChannelInboundHandlerAdapter{
+class CilentHandler extends SimpleChannelInboundHandler<TankJoinMsg>{
+
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf buf = null;
-        try {
-            buf = (ByteBuf) msg;
-            byte[] bytes = new  byte[buf.readableBytes()];
-            buf.getBytes(buf.readerIndex(),bytes);
-            String msgAccepted = new String(bytes);
-           // TankFrame.INSTANCE.updateText(msgAccepted);
-            //System.out.println(new String(bytes));
+    protected void channelRead0(ChannelHandlerContext ctx, TankJoinMsg msg) throws Exception {
 
-            /*System.out.println(buf);
-            System.out.println(buf.refCnt());*/
-        /*} catch (Exception e) {
-            e.printStackTrace();*/
-        }finally {
-            if(buf != null) ReferenceCountUtil.release(buf);
-            /*System.out.println(buf.refCnt());*/
-        }
+        if(msg.id.equals(TankFrame.INSTANCE.getMainTank().getId())  ||
+                TankFrame.INSTANCE.findByUUID(msg.id) !=null ) return ;
+            System.out.println(msg);
+            Tank t= new Tank(msg);
+            TankFrame.INSTANCE.addTank(t);
+
+            ctx.writeAndFlush(new TankJoinMsg(TankFrame.INSTANCE.getMainTank()));
 
     }
 
@@ -107,7 +102,7 @@ class CilentHandler extends ChannelInboundHandlerAdapter{
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         // channel第一次连接上 可用写出一个字符串directory memory
        // ByteBuf buf = Unpooled.copiedBuffer("hello".getBytes());
-        ctx.writeAndFlush(new TankMsg(5,8));
+        ctx.writeAndFlush(new TankJoinMsg(TankFrame.INSTANCE.getMainTank()));
     }
 
 

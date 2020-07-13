@@ -5,7 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -13,9 +13,10 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
+    public static  final  TankFrame INSTANCE = new TankFrame();
     Tank myTank = new Tank(200, 400, Dir.DOWN,Group.GOOD,this);
     List<Bullet> bullets = new ArrayList<>();
-    List<Tank> tanks = new ArrayList<>();
+    Map<UUID,Tank> tanks = new HashMap<>();
     List<Explode> explodes = new ArrayList<>();
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 735;
 
@@ -94,6 +95,10 @@ public class TankFrame extends Frame {
             }
         }
 
+    }
+
+    public Tank getMainTank() {
+        return  this.myTank;
     }
 
     class MyKeyListener extends KeyAdapter {
