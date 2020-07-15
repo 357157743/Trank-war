@@ -14,14 +14,18 @@ import java.util.List;
 public class TankFrame extends Frame {
 
     public static  final  TankFrame INSTANCE = new TankFrame();
-    Tank myTank = new Tank(200, 400, Dir.DOWN,Group.GOOD,this);
+    Random r = new Random();
+
+    Tank myTank = new Tank(r.nextInt(GAME_WIDTH),r.nextInt(GAME_HEIGHT),Dir.DOWN,Group.GOOD,this);
+
     List<Bullet> bullets = new ArrayList<>();
     Map<UUID,Tank> tanks = new HashMap<>();
     List<Explode> explodes = new ArrayList<>();
+
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 735;
 
 
-    public TankFrame() {
+    private TankFrame() {
 
         // 窗口可见
         this.setVisible(true);
@@ -77,6 +81,8 @@ public class TankFrame extends Frame {
         for (int i=0;i<bullets.size();i++) {
             bullets.get(i).paint(g);
         }
+        // java8 stream api
+        tanks.values().stream().forEach((e)-> e.paint(g));
 
         //画坦克
         for (int i=0;i<tanks.size();i++) {
@@ -99,6 +105,14 @@ public class TankFrame extends Frame {
 
     public Tank getMainTank() {
         return  this.myTank;
+    }
+
+    public Tank findByUUID(UUID id) {
+        return tanks.get(id);
+    }
+
+    public void addTank(Tank t) {
+        tanks.put(t.getId(),t);
     }
 
     class MyKeyListener extends KeyAdapter {

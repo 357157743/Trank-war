@@ -1,5 +1,7 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.net.TankJoinMsg;
+
 import java.awt.*;
 import java.util.Random;
 import java.util.UUID;
@@ -22,6 +24,15 @@ public class Tank {
     private Random random = new Random();
     private Group group = Group.BAD;
     Rectangle rect  = new Rectangle();   //Rectangle 矩形
+
+    public Tank(TankJoinMsg msg) {
+        this.x = msg.x;
+        this.y = msg.y;
+        this.dir = msg.dir;
+        this.moving = msg.moving;
+        this.group = msg.group;
+        this.id = msg.id;
+    }
 
     public UUID getId() {
         return id;
@@ -99,6 +110,11 @@ public class Tank {
 
     public void paint(Graphics g) {
         if(!living) tf.tanks.remove(this);
+
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.drawString(id.toString(), this.x, this.y-10);
+        g.setColor(c);
 
         switch (dir){
             case LEFT:

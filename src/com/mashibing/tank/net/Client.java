@@ -1,23 +1,21 @@
 package com.mashibing.tank.net;
 
-import com.mashibing.tank.Tank;
 import com.mashibing.tank.TankFrame;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.ReferenceCountUtil;
 
 /**
  * @date 2020/6/15 - 10:25
  */
 public class Client {
 
+    public static Client INSTANCE = new Client() ;
     private Channel channel = null;
 
+    private Client(){};
     public void connect() {
         // 线程池
         EventLoopGroup group = new NioEventLoopGroup(); //不传参数 默认是核数的2倍 线程
@@ -54,22 +52,16 @@ public class Client {
         }
     }
 
-    public void send(String msg){
-        ByteBuf buf = Unpooled.copiedBuffer(msg.getBytes());
-        channel.writeAndFlush(buf);
+    public void send(TankJoinMsg msg){
+       channel.writeAndFlush(msg);
     }
 
-    public static void main(String[] args) {
-        Client c = new Client();
-        c.connect();
-    }
 
     public void closeConnect(){
-        this.send("_bye_");
+       // this.send("_bye_");
 
     }
 }
-
 
 class ClientChannelInitializer extends  ChannelInitializer<SocketChannel> {
 
@@ -86,15 +78,8 @@ class CilentHandler extends SimpleChannelInboundHandler<TankJoinMsg>{
 
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, TankJoinMsg msg) throws Exception {
-
-        if(msg.id.equals(TankFrame.INSTANCE.getMainTank().getId())  ||
-                TankFrame.INSTANCE.findByUUID(msg.id) !=null ) return ;
-            System.out.println(msg);
-            Tank t= new Tank(msg);
-            TankFrame.INSTANCE.addTank(t);
-
-            ctx.writeAndFlush(new TankJoinMsg(TankFrame.INSTANCE.getMainTank()));
+    public void channelRead0(ChannelHandlerContext ctx, TankJoinMsg msg) throws Exception {
+        msg.handle();
 
     }
 

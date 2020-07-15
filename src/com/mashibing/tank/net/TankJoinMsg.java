@@ -3,6 +3,7 @@ package com.mashibing.tank.net;
 import com.mashibing.tank.Dir;
 import com.mashibing.tank.Group;
 import com.mashibing.tank.Tank;
+import com.mashibing.tank.TankFrame;
 
 import java.io.*;
 import java.util.UUID;
@@ -10,7 +11,7 @@ import java.util.UUID;
 /**
  * @date 2020/6/30 - 8:46
  */
-public class TankJoinMsg {
+public class TankJoinMsg  extends Msg{
 
     public int x,y;
     public Dir dir;
@@ -28,6 +29,7 @@ public class TankJoinMsg {
     }
 
     public TankJoinMsg(int x, int y, Dir dir, boolean moving, Group group, UUID id) {
+        super();
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -61,6 +63,7 @@ public class TankJoinMsg {
         }
     }
 
+    @Override
     public byte[] toBytes(){
 
         ByteArrayOutputStream baos = null;
@@ -120,4 +123,15 @@ public class TankJoinMsg {
 
     }
 
+    @Override
+    public void handle() {
+        if(this.id.equals(TankFrame.INSTANCE.getMainTank().getId())  ||
+                TankFrame.INSTANCE.findByUUID(this.id) !=null ) return ;
+        System.out.println(this);
+        Tank t= new Tank(this);
+        TankFrame.INSTANCE.addTank(t);
+
+        Client.INSTANCE.send(new TankJoinMsg(TankFrame.INSTANCE.getMainTank()));
+
+    }
 }

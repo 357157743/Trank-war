@@ -7,7 +7,6 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.util.ReferenceCountUtil;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
 
@@ -65,7 +64,10 @@ class ServerChildHandler  extends ChannelInboundHandlerAdapter  {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("channelRaed");
+        Server.clients.writeAndFlush(msg);
+
+
+        /*System.out.println("channelRaed");
 
         try {
             TankJoinMsg tm  = (TankJoinMsg) msg;
@@ -73,7 +75,7 @@ class ServerChildHandler  extends ChannelInboundHandlerAdapter  {
             System.out.println(tm);
         } finally {
             ReferenceCountUtil.release(msg);
-        }
+        }*/
 
      /*   ByteBuf buf = null;
         try {

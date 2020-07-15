@@ -50,7 +50,7 @@ public class TankJoinMsgCodecTest {
     }
 
     @Test
-    public void testDecoder() {
+    public  void testDecoder() {
         EmbeddedChannel ch = new EmbeddedChannel();
 
 
@@ -61,7 +61,7 @@ public class TankJoinMsgCodecTest {
         ByteBuf buf = Unpooled.buffer();
         buf.writeBytes(msg.toBytes());
 
-        ch.writeInbound(buf.duplicate());
+        ch.writeInbound(buf.duplicate()); // 复制一份
 
         TankJoinMsg msgR = (TankJoinMsg) ch.readInbound();
 

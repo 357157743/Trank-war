@@ -1,12 +1,15 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.net.Client;
+
 /**
  * @date 2020/4/17 - 9:11
  */
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-        TankFrame tf = new TankFrame();
+        TankFrame tf = TankFrame.INSTANCE;
+        tf.setVisible(true);
 
         /*int initTankCount = PropertyMgr.get("initTankCount");
 
@@ -19,9 +22,19 @@ public class Main {
 
        new Thread(() -> new Audio("audio/war1.wav").loop()).start();   // 背景音乐
 
-        while(true){
-            Thread.sleep(25);
-            tf.repaint();
-        }
+       new Thread( ()->{
+
+           while(true){
+               try {
+                   Thread.sleep(25);
+               } catch (InterruptedException e) {
+                   e.printStackTrace();
+               }
+               tf.repaint();
+           }
+       }).start();
+
+         Client.INSTANCE.connect();
+
     }
 }
