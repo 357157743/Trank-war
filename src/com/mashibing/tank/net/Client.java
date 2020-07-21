@@ -52,7 +52,7 @@ public class Client {
         }
     }
 
-    public void send(TankJoinMsg msg){
+    public void send(Msg msg){
        channel.writeAndFlush(msg);
     }
 
@@ -74,11 +74,11 @@ class ClientChannelInitializer extends  ChannelInitializer<SocketChannel> {
     }
 }
 
-class CilentHandler extends SimpleChannelInboundHandler<TankJoinMsg>{
+class CilentHandler extends SimpleChannelInboundHandler<Msg>{
 
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, TankJoinMsg msg) throws Exception {
+    public void channelRead0(ChannelHandlerContext ctx, Msg msg) throws Exception {
         msg.handle();
 
     }

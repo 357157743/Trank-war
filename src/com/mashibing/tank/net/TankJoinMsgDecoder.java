@@ -1,13 +1,10 @@
 package com.mashibing.tank.net;
 
-import com.mashibing.tank.Dir;
-import com.mashibing.tank.Group;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @date 2020/6/30 - 8:46
@@ -17,16 +14,28 @@ public class TankJoinMsgDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
 
-        if(in.readableBytes() <33 ) return; // TCP拆包 粘包的问题
-        TankJoinMsg msg = new TankJoinMsg();
+        if(in.readableBytes() <8 ) return; // 消息头 消息长度 都是int类型 一共8个字节
+        in.markReaderIndex(); // bytebuf 标记指针开始读的位置
 
-        msg.x =in.readInt();
-        msg.y = in.readInt();
-        msg.dir = Dir.values()[in.readInt()];
-        msg.moving = in.readBoolean();
-        msg.group = Group.values()[in.readInt()];
-        msg.id = new UUID(in.readLong(), in.readLong());
+        MsgType msgtype = MsgType.values()[in.readInt()];
+        int length = in.readInt();
 
-        out.add(msg);
+        if(in.readableBytes() <length){
+            in.resetReaderIndex(); // 指针回到初始标记的位置
+            return;
+        }
+
+        byte[] bytes = new byte[length];
+        in.readBytes(bytes);
+
+        switch (msgtype){
+            case TankJoin:
+                TankJoinMsg msg = new TankJoinMsg();
+                msg.parse(bytes);
+                out.add(msg);
+                break;
+            default:
+                break;
+        }
     }
 }

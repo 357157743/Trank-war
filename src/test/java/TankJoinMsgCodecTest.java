@@ -1,5 +1,6 @@
 import com.mashibing.tank.Dir;
 import com.mashibing.tank.Group;
+import com.mashibing.tank.net.MsgType;
 import com.mashibing.tank.net.TankJoinMsg;
 import com.mashibing.tank.net.TankJoinMsgDecoder;
 import com.mashibing.tank.net.TankJoinMsgEncoder;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 
-/**
+/** 暂时还报错
  * @date 2020/7/3 - 9:01
  */
 public class TankJoinMsgCodecTest {
@@ -28,6 +29,12 @@ public class TankJoinMsgCodecTest {
         ch.writeOutbound(msg);
 
         ByteBuf buf = (ByteBuf) ch.readOutbound();
+        MsgType msgtype= MsgType.values()[buf.readInt()];
+        assertEquals(MsgType.TankJoin, msgtype);
+
+        int length = buf.readInt();
+        assertEquals(33 , length);
+
 
         int x = buf.readInt();
         int y = buf.readInt();
@@ -46,25 +53,25 @@ public class TankJoinMsgCodecTest {
         assertEquals(Group.BAD, g);
         assertEquals(id, uuid);
 
-
     }
 
     @Test
     public  void testDecoder() {
         EmbeddedChannel ch = new EmbeddedChannel();
 
-
         UUID id = UUID.randomUUID();
-        TankJoinMsg msg = new TankJoinMsg(5, 10, Dir.DOWN, true, Group.BAD, id);
+        TankJoinMsg msg = new TankJoinMsg(5,10,Dir.DOWN, true, Group.BAD, id);
         ch.pipeline().addLast(new TankJoinMsgDecoder());
 
         ByteBuf buf = Unpooled.buffer();
-        buf.writeBytes(msg.toBytes());
+        buf.writeInt(MsgType.TankJoin.ordinal());
+        byte[] bytes = msg.toBytes();
+
+        buf.writeInt(bytes.length);
+        buf.writeBytes(bytes);
 
         ch.writeInbound(buf.duplicate()); // 复制一份
-
         TankJoinMsg msgR = (TankJoinMsg) ch.readInbound();
-
 
         assertEquals(5, msgR.x);
         assertEquals(10, msgR.y);
