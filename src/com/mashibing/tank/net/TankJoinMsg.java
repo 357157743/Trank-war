@@ -13,7 +13,8 @@ import java.util.UUID;
  */
 public class TankJoinMsg  extends Msg{
 
-    public int x,y;
+    public int x;
+    public int y;
     public Dir dir;
     public boolean moving;
     public Group group;
@@ -61,6 +62,11 @@ public class TankJoinMsg  extends Msg{
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public MsgType getMsgType() {
+        return MsgType.TankJoin;
     }
 
     @Override
@@ -112,7 +118,7 @@ public class TankJoinMsg  extends Msg{
         StringBuilder builder = new StringBuilder();
         builder.append(this.getClass().getName())
                 .append("[")
-                .append("uuid=" + id + " | ")
+                .append("uuid=" + id + "|")
                 .append("x=" + x + " | ")
                 .append("y=" + y + " | ")
                 .append("moving=" + moving + " | ")
